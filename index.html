@@ -48,7 +48,8 @@
         <script type="text/javascript">
             var url_prefix = 'https://clients2.google.com/service/update2/crx?response=redirect&x=id%3D';
             var url_suffix = '%26uc';
-            var id_regex = /\/([a-p]{32})/;
+            //var id_regex = /\/([a-p]{32})/;
+            var id_regex = /([a-p]{32})/;
                    
             $('form').submit(function() {
                 var url = $('input#url').val();
