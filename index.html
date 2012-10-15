@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>crx file downloader</title>
+        <link href="https://netdna.bootstrapcdn.com/bootswatch/2.1.0/cerulean/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span10 offset1 pagination-centered">
+                    <h1>crx file downloader</h1>
+                    <p class="lead">Download the Chrome extension (crx) file without installing it.</p>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span10 offset1 pagination-centered">
+                    <form>
+                        <label>Please paste the link to the extension's Chrome Web Store page here:</label>
+                        <div class="input-append">
+                            <input id="url" type="text" class="span9" placeholder="e.g. https://chrome.google.com/webstore/detail/google-mail-checker/mihcahmgecmbnbcchbopgniflfhgnkff">
+                            <button id="download" type="submit" class="btn">Download</button>
+                        </div>
+                    </form>
+                    or you can drag <a id="bookmark" href="javascript%3Awindow.open(%22https%3A%2F%2Fclients2.google.com%2Fservice%2Fupdate2%2Fcrx%3Fresponse%3Dredirect%26x%3Did%253D%22%20%2B%20window.location.href.match(%2F%5C%2F(%5Ba-p%5D%7B32%7D)%2F)%5B1%5D%20%2B%20%22%22%20%2B%20%22%2526uc%22)">Download crx</a> to your bookmark toolbar, and use it on the extension's page directly.
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            var url_prefix = 'https://clients2.google.com/service/update2/crx?response=redirect&x=id%3D';
+            var url_suffix = '%26uc';
+            var id_regex = /\/([a-p]{32})/;
+                   
+            $('form').submit(function() {
+                var url = $('input#url').val();
+                var id_list = url.match(id_regex);
+                if (!id_list) {
+                    alert('Invalid URL! Pleaser try again.');
+                } else {
+                    window.open(url_prefix + id_list[1] + url_suffix);
+                }
+                
+                return false;
+            });
+            
+            var bookmark_url = 'javascript:' + escape('window.open("' + url_prefix + '" + window.location.href.match(' + id_regex + ')[1] + "' + '" + "' + url_suffix + '")');
+            console.log(bookmark_url);
+            $('a#bookmark').attr('href', bookmark_url);
+        </script>
+    </body>
+</html>
