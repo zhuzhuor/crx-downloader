@@ -37,7 +37,7 @@
                 var url = $('input#url').val();
                 var id_list = url.match(id_regex);
                 if (!id_list) {
-                    alert('Invalid URL! Pleaser try again.');
+                    alert('Invalid URL! Please try again.');
                 } else {
                     window.open(url_prefix + id_list[1] + url_suffix);
                 }
